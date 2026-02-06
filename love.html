@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine's Day!</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #ffafbd, #ffc3a0);
+            color: #fff;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+            height: 100vh;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 0.2em;
+            z-index: 10;
+            position: relative;
+        }
+
+        p {
+            font-size: 1.5em;
+            margin-bottom: 1em;
+            z-index: 10;
+            position: relative;
+        }
+
+        .heart {
+            color: red;
+            font-size: 5em;
+            animation: beat 1s infinite;
+        }
+
+        @keyframes beat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        button {
+            background-color: #fff;
+            color: #ff6b6b;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            z-index: 10;
+            position: relative;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+        }
+
+        footer {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            font-size: 0.9em;
+            z-index: 10;
+            position: relative;
+        }
+
+        /* Falling hearts */
+        .falling-heart {
+            position: absolute;
+            top: -50px;
+            font-size: 1.5em;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Confetti */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: pink;
+            animation: confettiFall 1s linear forwards;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(200px) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Happy Valentine's Day Baby! <span class="heart">❤️</span></h1>
+    <p>Will you be my date today?</p>
+    <button onclick="showMessage()">Click Me!</button>
+    <footer>02.14.2026</footer>
+
+   <audio id="music" loop>
+    <source src="closer-to-you.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
+    <script>
+        // Function for button click
+        function showMessage() {
+            alert("You have no choice, so IT'S A YES 🤗");
+            startConfetti();
+            document.getElementById('music').play();
+        }
+
+        // Falling hearts generator
+        function createHearts() {
+            const heart = document.createElement('div');
+            heart.className = 'falling-heart';
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            heart.style.fontSize = (Math.random() * 30 + 20) + 'px';
+            heart.innerText = '❤️';
+            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        setInterval(createHearts, 300);
+
+        // Confetti on button click
+        function startConfetti() {
+            for(let i = 0; i < 30; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * window.innerWidth + 'px';
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 70%)`;
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 1000);
+            }
+        }
+    </script>
+
+</body>
+</html>
